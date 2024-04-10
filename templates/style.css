@@ -35,7 +35,7 @@ a:active
 
 .bg-image
 {
-    background-image: url("./img/background2.jpeg");
+    background-image: url("../img/background2.jpeg");
     filter: blur(7px);
     -webkit-filter: blur(7px);
     height: 100%;
