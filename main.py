@@ -14,4 +14,3 @@ class Main():
 catalog = Main()
 
 catalog.app.run(debug = True)
-
