@@ -25,8 +25,12 @@ class TabelaProdutos():
 
         return Produto(value.nome, value.preco, value.cor, novo_id)
 
-    def delete(self, id) -> None:
+    def delete(self, produtoID) -> None:
+        
+        if produtoID not in self.tabela.keys():
 
+            raise ValueError("TabelaProdutos -> função delete retornou um erro: ID DO PRODUTO NÃO ENCOTNRADO NA TABELA. ID RECEBIDO -> {}".format(produtoID))
+        
         self.tabela.pop(id)
 
     def updateCor(self, produtoID: int, cor: str) -> None:
@@ -70,7 +74,7 @@ class TabelaProdutos():
 
         if produtoID not in self.tabela.keys():
 
-            raise ValueError("TabelaProdutos -> função update retornou um erro: ID DO PRODUTO NÃO ENCOTNRADO NA TABELA. ID RECEBIDO -> {}".format(produtoID))
+            raise ValueError("TabelaProdutos -> função get retornou um erro: ID DO PRODUTO NÃO ENCOTNRADO NA TABELA. ID RECEBIDO -> {}".format(produtoID))
         
         in_table = self.tabela[produtoID]
 
