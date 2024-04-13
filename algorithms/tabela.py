@@ -29,11 +29,52 @@ class TabelaProdutos():
 
         self.tabela.pop(id)
 
-    def update(self, value: Produto) -> None:
-        pass
+    def updateCor(self, produtoID: int, cor: str) -> None:
+        self.__update__(produtoID, "cor", cor)
 
-    def get(self, id) -> Produto:
-        pass
+    def updateNome(self, produtoID, nome: str) -> None:
+        self.__update__(produtoID, "nome", nome)
+
+    def updatePreco(self, produtoID, preco: str) -> None:
+        self.__update__(produtoID, "preco", preco)
+
+    def getProduto(self, produtoID) -> Produto:
+        produtoDict = self.__get__(produtoID)
+        
+        return Produto(produtoDict["nome"], produtoDict["preco"], produtoDict["cor"], produtoID)
+
+    def getNomeProduto(self, produtoID) -> str:
+        produtoDict = self.__get__(produtoID)
+
+        return produtoDict["nome"]
+
+    def getPrecoProduto(self, produtoID) -> str:
+        produtoDict = self.__get__(produtoID)
+
+        return produtoDict["preco"]
+
+    def getCorProduto(self, produtoID) -> str:
+        produtoDict = self.__get__(produtoID)
+
+        return produtoDict["cor"]
+
+    def __update__(self, produtoID: int, keyTable: str, newValue: str) -> None:
+        
+        if produtoID not in self.tabela.keys():
+
+            raise ValueError("TabelaProdutos -> função update retornou um erro: ID DO PRODUTO NÃO ENCOTNRADO NA TABELA. ID RECEBIDO -> {}".format(produtoID))
+        
+        self.tabela[produtoID][keyTable] = newValue
+
+    def __get__(self, produtoID) -> dict:
+
+        if produtoID not in self.tabela.keys():
+
+            raise ValueError("TabelaProdutos -> função update retornou um erro: ID DO PRODUTO NÃO ENCOTNRADO NA TABELA. ID RECEBIDO -> {}".format(produtoID))
+        
+        in_table = self.tabela[produtoID]
+
+        return in_table
 
 class TabelaCategorias():
 

@@ -5,5 +5,9 @@ class Produto():
         self.nome = nome
         self.preco = preco
         self.cor = cor
+
+    def printProduto(self) -> None:
+
+        print(f"Nome -> {self.nome}\nPreco -> {self.preco}\nCor -> {self.cor}\nID -> {self.idProduto}")
     
     
