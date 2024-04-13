@@ -9,6 +9,7 @@
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
             *
             {
@@ -16,38 +17,9 @@
                 padding: 0;
             }
 
-            a
-            {
-                text-decoration: none;
-            }
-            a:link, a:visited
-            {
-                color:red
-            }
-
-            /*Links hover*/
-            a:hover
-            {
-                background: red;
-            }
-
-            /*Links ativos*/
-            a:active
-            {
-                color:red ;
-            }
-
-            #id
-            {
-                display: flex;
-                
-            }
-
             .bg-image
             {
-                background-image: url("static/img/background2.jpeg");
-                filter: blur(6px);
-                -webkit-filter: blur(6px);
+                background-image: url("static/img/background_letter_top.png");
                 height: 100%;
                 width: 100%;
                 background-position: center;
@@ -62,21 +34,34 @@
                 font-family: "Roboto Slab", serif;
                 font-weight: 500;
                 height: 100%;
-                margin: 0;
                 display: flex;
+                flex-direction: column;
+                /* justify-content: center; */
+                align-items: center;
+                background-color: white;
+
+            }
+
+            .search-box
+            {
+                background-color: #fcfcfc;
+                font-family: "Jost", sans-serif;
+                border-radius: 50px;
+                width: 50vw;
+                height: 6vh;
+                margin-top: 10vw;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
                 justify-content: center;
                 align-items: center;
-                background-color: black;
-
+                display: flex;
             }
 
             .main
             {
-                background-color: rgb(243, 243, 243);
+                background-color: rgba(255, 255, 255, 0.5);
                 width: 80vw;
                 height: 80vh;
-                border-radius: 10px; 
-                box-shadow: 0 0 30px rgba(0, 0, 0, 0.425);
+                margin-top: 9vw;
             }
 
         </style>
@@ -85,8 +70,12 @@
 
     <body>
         <div class="bg-image"></div>
-        
-        <div class="main">
+
+        <!-- <div class="search-box">
+            COLOCAR ICON DE PESQUISA E BOX DE PESQUISA
+        </div> -->
+
+        <!-- <div class="main"></div> -->
 
         </div>
     </body>
