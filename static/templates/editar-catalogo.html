@@ -1,0 +1,86 @@
+<html>
+    <header>
+        <title>G&K Store - Editar catálogo</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel= "stylesheet" type= "text/css"  href="../styles/style.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </header>
+
+    <body>
+        <nav class="nav1">
+            <img src="../img/shoes3.png" alt="" class="shoes-pic" href="index.html">
+
+            <ul class="submenu1">
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Sobre nós</a></li>
+            </ul>
+        </nav>
+
+        <div class="bg-catalogo" id="bg-catalogo">
+            <h1 class="catalogo-title">EDITAR CATÁLOGO</h1>
+            <button class="btn-excluir-produtos" onclick="fazerDownloadArquivo()">FAZER DOWNLOAD DO CATÁLOGO</button>
+            <button class="btn-excluir-produtos" onclick="adicionar_produto()">ADICIONAR PRODUTO</button>
+            
+            <div class="main">
+                <div class="items-catalogo" id="catalogo-container">
+                    <!-- JS ITEMS -->
+                </div>
+                
+                <div class="menu">
+                    <div class="pesquisar">
+                            <input type="text" class="search-input" placeholder="">
+                            <button onclick="pesquisar()" class="btn-buscar">BUSCAR</button>
+                    </div>
+
+                    <div class="div-categorias">
+                        <p class="title-categorias">Categorias</p>
+                        <button class="btn-categorias" onclick="gerenciar_categorias()">Editar categoria</button>
+                        
+                        <div class="categorias" id="categorias">
+                            <!-- JS ITEMS -->
+                        </div>
+                    
+                    </div>
+
+                    <div class="ordenacao-filtro">
+                        <p class="title-categorias">Ordenar por: </p>
+                        <div class="filtros">
+                                <input type="radio" id="option1" name="option" class="hidden-radio" checked>
+                                <label for="option1" class="custom-radio">Padrão</label>
+
+                                <br>
+
+                                <input type="radio" id="option2" name="option" class="hidden-radio">
+                                <label for="option2" class="custom-radio">Ordem Alfabética</label>
+
+                                <br>
+
+                                <input type="radio" id="option3" name="option" class="hidden-radio">
+                                <label for="option3" class="custom-radio">Menor preço</label>
+
+                                <br>
+
+                                <input type="radio" id="option4" name="option" class="hidden-radio">
+                                <label for="option4" class="custom-radio">Maior preço</label>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <footer class="foot">
+            RECEBER NOVIDADES POR EMAIL: COLOCAR BOX DE INPUT AQUI
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="../scripts/script.js"></script>
+    </body>
+
+</html>

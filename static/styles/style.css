@@ -1,0 +1,525 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap');
+
+@font-face
+{
+    font-family: "Zurich Extended";
+    src: url("../fonts/Zurich Extended BT/Zurich Extended BT.ttf") format('truetype');
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: "Zurich Extended", serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+/* --------> NAV DO TOPO  <------------- */
+.nav1 
+{
+    font-family: "Quicksand", sans-serif;
+    background-color: #17191B;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.nav1 .shoes-pic
+{
+    position: absolute;
+    width: 10%;
+    height: auto;
+    cursor: pointer;
+}
+
+.nav1 ul 
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav1 ul li 
+{
+    display: inline;
+    margin-left: 20px; 
+}
+
+.nav1 ul li a 
+{
+    color: #EFECE9;
+    text-decoration: under;
+    padding: 15px;
+}
+
+.nav1 ul li a:hover
+{
+    color: white;
+}
+
+.nav1 .submenu1
+{
+    margin-left: 80vw;
+}
+
+/* --------> FIM NAV DO TOPO  <------------- */
+
+/* --------> DIV 2 (ONDE TÁ A FOTO DO TÊNIS) <------------- */
+.bg-image 
+{
+    position: relative;
+    height: 95%; 
+    width: 100%; 
+    z-index: 0;
+    overflow: hidden; 
+}
+
+.bg-image::before 
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, black 50%, #eceded 50%);
+    z-index: -2;
+}
+
+.bg-image::after 
+{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/background.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.logo
+{
+    position: absolute;
+    background-image: url("../img/logo2.png");
+
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    margin-left: 25vw;
+    margin-top: -25vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-image .btn-principal
+{
+    position: absolute;
+
+    min-width: 25vw;
+    min-height: 7vh;
+
+    margin-left: 63vw;
+    margin-top: 40vh;
+
+    background-color: #17191B;
+
+    font-family: "Zurich Extended", serif;
+    color: white;
+    font-size: 15px;
+    font-weight: 900;    
+    letter-spacing: 2px;
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+    border: none;
+    z-index: 10;
+}
+
+.btn-principal:hover
+{
+    text-decoration: none;
+    background-color: #36393b;
+}
+
+
+.bg-image .btn-editar-catalogo
+{
+    position: absolute;
+
+    min-width: 25vw;
+    min-height: 7vh;
+
+    margin-left: 63vw;
+    margin-top: 50vh;
+
+    background-color: #17191B;
+
+    font-family: "Zurich Extended", serif;
+    color: white;
+    font-size: 15px;
+    font-weight: 900;    
+    letter-spacing: 2px;
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+    border: none;
+
+    z-index: 1q ;
+}
+
+.btn-editar-catalogo:hover
+{
+    text-decoration: none;
+    background-color: #36393b;;
+        
+}
+
+/* --------> FINAL DA DIV 2 (ONDE TÁ A FOTO DO TÊNIS) <------------- */
+
+/* --------> FOOTER <------------- */
+.foot
+{
+    position: relative;
+    height: 5%; 
+    width: 100%; 
+    background-color: #17191B;
+    color: white;
+    font-family: "Zurich Extended", serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
+/* 
+
+    /catalogo.html
+
+*/
+
+.bg-catalogo
+{
+    position: relative;
+    height: 95%; 
+    width: 100%; 
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main
+{
+    width: 95%;
+    height: 80%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.bg-catalogo .menu
+{
+    position: relative;
+    align-self: flex-start;
+    width: 20%;
+    height: 100%;
+    /* background-color: black; */
+}
+
+.bg-catalogo .catalogo-title
+{
+    margin-top: 2vw;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: black;
+}
+
+.bg-catalogo .items-catalogo
+{
+    position: relative;
+    align-self: flex-end;
+    width: 80%;
+    height: 100%;
+    overflow: visible;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    padding-left: 3vw;
+}
+
+#catalogo-container 
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.produto-catalogo
+{
+    width: 15vw;
+    max-height: 400px;
+    margin-left: 2vw;
+    margin-top: 1vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-size: 12px;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ccc;
+    cursor:pointer;
+}
+
+.title-produto
+{
+    position: relative;
+}
+
+.pic-produto
+{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.preco-produto
+{
+    font-weight: bolder;
+}
+
+.div-branco
+{
+    background-color: white;
+    width: 100%;
+    height: 2vw;
+}
+
+.pesquisar
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 2vw;
+}
+
+.search-input
+{
+    margin-right: 1vw;
+    border: 1px solid rgb(121, 121, 121);
+    border-radius: 50px;
+    width: 12vw;
+    height: 2vw;
+    padding: 20px;
+    font-weight: bolder;
+    font-family: "Zurich Extended", serif;
+}
+
+.btn-buscar
+{
+    background-color: #17191B;
+    border: none;
+    color: white;
+    padding: 10px 15px 10px 15px;
+}
+
+.btn-buscar:hover
+{
+    background-color: #36393b;
+}
+
+.div-categorias
+{
+    margin-left: 0.5vw;
+    margin-top: 2vw;
+    width: 96%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-categorias
+{
+    padding-top: 0.5vw;
+    padding-left: 1vw;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.categorias 
+{
+    align-self: center;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border: 1px solid rgb(207, 206, 206);
+    font-size: 12px;
+}
+
+.ordenacao-filtro
+{
+    margin-left: 0.5vw;
+    margin-top: 2vw;
+    width: 96%;
+    height: 47%;
+}
+
+.filtros
+{
+    margin-left: 1vw;
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    font-size: 13px;
+}
+
+.checkbox-container
+{
+    margin-left: 0.5vw;
+    margin-top: 0.5vw;
+}
+
+/* 
+
+    /editar-catalogo.html
+
+*/
+
+.btn-categorias
+{
+    position: absolute;
+    margin-top: 0.3vw;
+    margin-left: 8.5vw;
+    background-color: #17191B;
+    border: none;
+    color: white;
+    padding: 5px 5px 5px 5px;
+}
+
+.btn-categorias:hover
+{
+    background-color: #36393b;
+}
+
+.edit-checkbox
+{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+.btn-excluir-produtos
+{
+    margin-top: 0.3vw;
+    margin-right: 8.5vw;
+    background-color: #17191B;
+    border: none;
+    color: white;
+    padding: 10px 15px 10px 15px;
+    align-self: end;
+}
+
+.btn-excluir-produtos:hover
+{
+    background-color: #36393b;
+}
+
+/* 
+
+    /editar-produto.html
+
+*/
+
+.editar-produto
+{
+    width: 50%;
+    height: 50%;
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.produto-antigo
+{
+    width: 50%;
+    height: 100%;
+}
+
+.produto-novo
+{
+    width: 50%;
+    height: 100%;
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.product-input
+{
+    padding-left: 10px;
+    width: 80%;
+    height: 10%;
+}
+
+.title-above
+{
+    margin-top: 0.5vw;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.btn-salvar-produto
+{
+    margin-top: 0.5vw;
+    width: 80%;
+    height: 10%;
+    background-color: #17191B;
+    border: none;
+    color: white;
+    padding: 10px 15px 10px 15px;
+}
+
+.btn-salvar-produto:hover
+{
+    background-color: #36393b;
+}
+
+.adicionar-produto
+{
+    width: 50%;
+    height: 50%;
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.editar-categorias
+{
+    width: 50%;
+    height: 50%;
+    margin-top: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

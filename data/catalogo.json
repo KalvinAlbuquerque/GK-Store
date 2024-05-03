@@ -1,12 +1,112 @@
 {
-    "catalogo" : {
-        
-        "categorias" : {
-            
+    "catalogo": {
+        "categorias": {
+            "Esportivo": {
+                "produtos": [
+                    "3",
+                    "6",
+                    "7",
+                    "8"
+                ]
+            },
+            "Skate": {
+                "produtos": [
+                    "2",
+                    "5"
+                ]
+            },
+            "Casual": {
+                "produtos": [
+                    "0",
+                    "1",
+                    "4"
+                ]
+            },
+            "Teste": {
+                "produtos": [
+                    "9",
+                    "10"
+                ]
+            }
         },
-
-        "produtos" : {
-
+        "produtos": {
+            "0": {
+                "nome": "T\u00caNIS SNEAKERS CASUAL",
+                "cor": "PRETO E BRANCO",
+                "preco": "150",
+                "linkFoto": "0.jpg",
+                "categoria": "Casual"
+            },
+            "1": {
+                "nome": "T\u00caNIS SNEAKER CASUAL 2",
+                "cor": "PRETO E BRANCO",
+                "preco": "70.00",
+                "linkFoto": "1.png",
+                "categoria": "Casual"
+            },
+            "2": {
+                "nome": "T\u00caNIS SKATE",
+                "cor": "PRETO E BRANCO",
+                "preco": "100.00",
+                "linkFoto": "2.png",
+                "categoria": "Skate"
+            },
+            "3": {
+                "nome": "T\u00caNIS ESPORTIVO",
+                "cor": "BRANCO E PRETO",
+                "preco": "200.00",
+                "linkFoto": "3.png",
+                "categoria": "Esportivo"
+            },
+            "4": {
+                "nome": "T\u00caNIS OLD SCHOOL",
+                "cor": "PRETO E BRANCO",
+                "preco": "100.00",
+                "linkFoto": "4.png",
+                "categoria": "Casual"
+            },
+            "5": {
+                "nome": "T\u00caNIS SKATE ROCKS",
+                "cor": "PRETO E BRANCO",
+                "preco": "100.00",
+                "linkFoto": "5.png",
+                "categoria": "Skate"
+            },
+            "6": {
+                "nome": "T\u00caNIS NIKE",
+                "cor": "PRETO E BRANCO",
+                "preco": "300.00",
+                "linkFoto": "6.png",
+                "categoria": "Esportivo"
+            },
+            "7": {
+                "nome": "T\u00caNIS NIKE ESPORTIVO",
+                "cor": "ROSA E BRANCO",
+                "preco": "300.00",
+                "linkFoto": "7.png",
+                "categoria": "Esportivo"
+            },
+            "8": {
+                "nome": "T\u00caNIS NIKE ESPORTIVO 2",
+                "cor": "ROSA E BRANCO",
+                "preco": "500.00",
+                "linkFoto": "8.png",
+                "categoria": "Esportivo"
+            },
+            "9": {
+                "nome": "Teste",
+                "preco": "12",
+                "cor": "Preto",
+                "linkFoto": "0.jpg",
+                "categoria": "Teste"
+            },
+            "10": {
+                "nome": "Tenis Teste 2",
+                "preco": "90",
+                "cor": "Preto",
+                "linkFoto": "2.png",
+                "categoria": "Teste"
+            }
         }
     }
 }
