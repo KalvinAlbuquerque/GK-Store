@@ -47,6 +47,9 @@ class TabelaProdutos():
 
     def updateLinkFoto(self, produtoID, linkFoto: str) -> None:
         self.__update__(produtoID, "linkFoto", linkFoto)
+    
+    def updateCategoria(self, produtoID, categoria: str) -> None:
+        self.__update__(produtoID, "categoria", categoria)
 
     def getProduto(self, produtoID) -> Produto:
         produtoDict = self.__get__(produtoID)
@@ -215,6 +218,8 @@ class TabelaCategorias():
             raise ValueError("TabelaCategorias -> função deleteProduto retornou um erro: CATEGORIA NÃO ENCOTNRADA NA TABELA. NOME RECEBIDO -> {}".format(nomeCategoria))
 
         produtos = self.tabela[nomeCategoria]["produtos"]
+
+        print("produtos na categoria -> {}".format(produtos))
 
         produtos.remove(idProduto)
 

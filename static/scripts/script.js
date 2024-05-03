@@ -81,18 +81,20 @@ async function fazerDownloadArquivo()
 */
 async function updateProduto(produtoID)
 {
-    produtoAttr = []
+    let produtoAttr = []
 
     let nome = document.getElementById("product-input");
     let preco = document.getElementById("product-input2");
     let cor = document.getElementById("product-input3");
     let linkFoto = document.getElementById("product-input4");
+    let categoria = document.getElementById("product-input5");
 
     produtoAttr.push(produtoID);
     produtoAttr.push(nome.value);
     produtoAttr.push(preco.value);
     produtoAttr.push(cor.value);
     produtoAttr.push(linkFoto.value);
+    produtoAttr.push(categoria.value)
 
     await fetch(`/updateProduto/${produtoAttr}`);
 
@@ -216,6 +218,8 @@ async function editarProduto(produtoID)
         <input type="text" class="product-input" id="product-input3" placeholder="${resposta.cor}">
         <p class=title-above>Link imagem:</p>
         <input type="text" class="product-input" id="product-input4" placeholder="${resposta.linkFoto}">
+        <p class=title-above>Categoria:</p>
+        <input type="text" class="product-input" id="product-input5" placeholder="${resposta.categoria}">
         <button class="btn-salvar-produto" id="btn-salvar-produto">SALVAR</button>
         <button class="btn-salvar-produto" id="btn-excluir-produto">EXCLUIR</button>
     `
@@ -244,10 +248,14 @@ async function editarProduto(produtoID)
     let inputName4 = document.getElementById("product-input4");
     inputName4.value = resposta.linkFoto;
 
+    let inputName5 = document.getElementById("product-input5");
+    inputName5.value = resposta.categoria;
+
     let button_salvar = document.getElementById("btn-salvar-produto");
     let button_excluir = document.getElementById("btn-excluir-produto");
 
     button_salvar.addEventListener('click', () => {
+        console.log(`clicado pra editar o produto ${produtoID}`)
         updateProduto(produtoID);
     });
 

@@ -128,12 +128,44 @@ class Main():
 
         lista = lista.split(",")
 
+        print("id do produto -> {}".format(lista[0]))
+
         produtoID = lista[0]
 
         tabelaPrincipal.getTabelaProdutos().updateNome(produtoID, lista[1])
         tabelaPrincipal.getTabelaProdutos().updatePreco(produtoID, lista[2])
         tabelaPrincipal.getTabelaProdutos().updateCor(produtoID, lista[3])
         tabelaPrincipal.getTabelaProdutos().updateLinkFoto(produtoID, lista[4])
+
+        categoriaPassada = lista[5]
+        currCategoria = tabelaPrincipal.getTabelaProdutos().getCategoriaProduto(produtoID)
+
+        print("curr categoria -> {}".format(currCategoria))
+
+        if (currCategoria != categoriaPassada):
+            """ Remove o ID do produto da lista de produtos da antiga categoria """
+            tabelaPrincipal.getTabelaCategorias().deleteProduto(currCategoria, produtoID)
+
+            """ Caso a nova categoria exista """
+            if (tabelaPrincipal.getTabelaCategorias().checarSeCategoriaExiste(categoriaPassada)):
+                """ Insere o ID do produto na lista de produtos da nova categoria """
+                tabelaPrincipal.getTabelaCategorias().insertProduto(categoriaPassada, produtoID)
+            
+            else:
+                """ Caso a nova categoria não exista """
+
+                """ Cria nova categoria com o nome indicado e insere o id do produto na lista
+                de produtos da nova categoria """
+                newCategoria = Categoria(categoriaPassada, [produtoID])
+                """ Insere a nova categoria na tabela """
+                tabelaPrincipal.getTabelaCategorias().insert(newCategoria)
+
+            """ Insere a nova categoria no dicionário do produto """
+            tabelaPrincipal.getTabelaProdutos().updateCategoria(produtoID, categoriaPassada)            
+
+            """ Checa se a antiga categoria ficou sem produtos. Se sim, a categoria é excluída da tabela """
+            if (len(tabelaPrincipal.getTabelaCategorias().getProdutos(currCategoria)) == 0):
+                tabelaPrincipal.getTabelaCategorias().delete(currCategoria)
 
         tabelaPrincipal.saveJson("data/catalogo.json")
 
