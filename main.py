@@ -1,7 +1,7 @@
 from flask import Flask, url_for, render_template, redirect, jsonify, send_file, make_response
 from algorithms.tabela import TabelaPrincipal, TabelaCategorias, TabelaProdutos
 import json
-import gzip
+import gzip, os
 
 from common.produto import Produto
 from common.catagoria import Categoria
@@ -25,10 +25,10 @@ class Main():
         # Redireciona para a página catalogo.html
         return redirect(url_for('static', filename='templates/catalogo.html'))
     
-    @app.route('/data/catalogo.json.gz')
+    @app.route('/catalogo.json.gz')
     def baixar_catalogo():
         # Redireciona para a página catalogo.html
-        return redirect(url_for('static', filename='catalogo.json.gz'))
+        return redirect(url_for('static', filename='compressed/catalogo.json.gz'))
     
     @app.route('/editar-catalogo.html')
     def redirect_to_editar_catalogo():
@@ -223,7 +223,11 @@ class Main():
 
     @app.route('/compactarArquivo/', methods=['GET'])
     def compactar_arquivo():
-        with gzip.open('data/catalogo.json.gz', 'wb') as json_file:
+
+        if os.path.exists("static/compressed/catalogo.json.gz"):
+            os.remove("static/compressed/catalogo.json.gz")
+
+        with gzip.open('static/compressed/catalogo.json.gz', 'wb') as json_file:
             # Escreva os dados compactados no arquivo usando json.dumps com indent=None
             json_string = json.dumps(tabelaPrincipal.tabela, indent=None)
             json_bytes = json_string.encode('utf-8')

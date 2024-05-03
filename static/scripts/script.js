@@ -62,7 +62,7 @@ async function fazerDownloadArquivo()
 {
     await fetch('/compactarArquivo/');
 
-    const nomeArquivo = '/data/catalogo.json.gz'; // Caminho relativo ao servidor web
+    const nomeArquivo = '/catalogo.json.gz'; // Caminho relativo ao servidor web
 
     const linkDownload = document.createElement('a');
     linkDownload.href = nomeArquivo;
