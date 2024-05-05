@@ -6,13 +6,18 @@
                     "3",
                     "6",
                     "7",
-                    "8"
+                    "8",
+                    "12",
+                    "14"
                 ]
             },
             "Skate": {
                 "produtos": [
                     "2",
-                    "5"
+                    "5",
+                    "11",
+                    "13",
+                    "15"
                 ]
             },
             "Casual": {
@@ -21,19 +26,13 @@
                     "1",
                     "4"
                 ]
-            },
-            "Teste": {
-                "produtos": [
-                    "9",
-                    "10"
-                ]
             }
         },
         "produtos": {
             "0": {
                 "nome": "T\u00caNIS SNEAKERS CASUAL",
-                "cor": "PRETO E BRANCO",
-                "preco": "150",
+                "cor": "PRETO",
+                "preco": "150.00",
                 "linkFoto": "0.jpg",
                 "categoria": "Casual"
             },
@@ -74,7 +73,7 @@
             },
             "6": {
                 "nome": "T\u00caNIS NIKE",
-                "cor": "PRETO E BRANCO",
+                "cor": "BRANCO E VERDE",
                 "preco": "300.00",
                 "linkFoto": "6.png",
                 "categoria": "Esportivo"
@@ -88,24 +87,45 @@
             },
             "8": {
                 "nome": "T\u00caNIS NIKE ESPORTIVO 2",
-                "cor": "ROSA E BRANCO",
+                "cor": "BRANCO",
                 "preco": "500.00",
                 "linkFoto": "8.png",
                 "categoria": "Esportivo"
             },
-            "9": {
-                "nome": "Teste",
-                "preco": "12",
-                "cor": "Preto",
-                "linkFoto": "0.jpg",
-                "categoria": "Teste"
+            "11": {
+                "nome": "T\u00eanis Rock Skate",
+                "preco": "120.00",
+                "cor": "Preto e Branco",
+                "linkFoto": "9.png",
+                "categoria": "Skate"
             },
-            "10": {
-                "nome": "Tenis Teste 2",
-                "preco": "90",
-                "cor": "Preto",
-                "linkFoto": "2.png",
-                "categoria": "Teste"
+            "12": {
+                "nome": "T\u00eanis Nike Revolution 7",
+                "preco": "500.00",
+                "cor": "Preto e Branco",
+                "linkFoto": "10.png",
+                "categoria": "Esportivo"
+            },
+            "13": {
+                "nome": "T\u00eanis Old School Skate",
+                "preco": "70.00",
+                "cor": "Rosa e Branco",
+                "linkFoto": "14.png",
+                "categoria": "Skate"
+            },
+            "14": {
+                "nome": "T\u00eanis Nike Revolution 6",
+                "preco": "400.00",
+                "cor": "Preto e Rosa",
+                "linkFoto": "12.png",
+                "categoria": "Esportivo"
+            },
+            "15": {
+                "nome": "T\u00eanis Skate Qix",
+                "preco": "300.00",
+                "cor": "Preto e Branco",
+                "linkFoto": "13.png",
+                "categoria": "Skate"
             }
         }
     }

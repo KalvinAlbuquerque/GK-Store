@@ -13,7 +13,6 @@ class Main():
     app = Flask(__name__)
 
     def __init__(self) -> None:
-        
         pass
 
     @app.route('/')
@@ -179,15 +178,15 @@ class Main():
     def excluir_produto(produtoID):
         global tabelaPrincipal
 
-        print("produto id -> {}".format(produtoID))
-
         """ Primeiro, remove o produto da lista de produtos dentro da sua categoria """
         categoria = tabelaPrincipal.getTabelaProdutos().getCategoriaProduto(produtoID)
 
-        print("produto categoria -> {}".format(categoria))  
-
         tabelaPrincipal.getTabelaCategorias().deleteProduto(categoria, produtoID)
         tabelaPrincipal.getTabelaProdutos().delete(produtoID)
+
+        """ Checa se a antiga categoria ficou sem produtos. Se sim, a categoria é excluída da tabela """
+        if (len(tabelaPrincipal.getTabelaCategorias().getProdutos(categoria)) == 0):
+            tabelaPrincipal.getTabelaCategorias().delete(categoria)
 
         tabelaPrincipal.saveJson("data/catalogo.json")
 

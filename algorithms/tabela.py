@@ -270,12 +270,6 @@ class TabelaPrincipal():
         self.produtos = TabelaProdutos(self.tabela["catalogo"]["produtos"])
         self.categorias = TabelaCategorias(self.tabela["catalogo"]["categorias"])
 
-    def removerProduto(self, produtoID: int) -> None:
-        pass
-
-    def removerCategoria(self, categoriaID: int) -> None:
-        pass
-
     def getTabelaProdutos(self) -> TabelaProdutos:
         
         return self.produtos
