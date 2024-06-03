@@ -1,13 +1,22 @@
 from flask import Flask, url_for, render_template, redirect, jsonify, send_file, make_response
-from algorithms.tabela import TabelaPrincipal, TabelaCategorias, TabelaProdutos
 import json
 import gzip, os
 
+# Modulos locais
+from algorithms.tabela import TabelaPrincipal, TabelaCategorias, TabelaProdutos
 from common.produto import Produto
 from common.catagoria import Categoria
+from algorithms.arvoreb import BTree
 
 global tabelaPrincipal
 tabelaPrincipal = TabelaPrincipal("data/catalogo.json")
+
+global ordemArvore
+ordemArvore = 6
+
+global arvore
+arvore = BTree(ordemArvore) # arvore b de ordem 6
+
 class Main():
 
     app = Flask(__name__)
@@ -58,7 +67,25 @@ class Main():
     @app.route('/atualizarTabela')
     def atualizar_tabela():
         global tabelaPrincipal
+        global arvore
+        global ordemArvore
+
         tabelaPrincipal = TabelaPrincipal("data/catalogo.json")
+        
+        #
+        # carregando os ids dos produtos pra arvore b
+        #
+        
+        # Faz duas listas com os ids dos produtos e os dicionarios dos produtos
+        tabelaProdutos = tabelaPrincipal.getTabelaProdutos()
+        todosIdsProdutos = tabelaProdutos.getTodosProdutosIds()
+        todosProdutos = tabelaProdutos.getTodosProdutos()
+
+        # Faz uma nova arvore
+        arvore = BTree(ordemArvore)
+
+        # Insere na arvore b os registros estruturados como: chave (idProduto) elemento (dicionarioDoProduto)
+        arvore.insert_from_list(todosIdsProdutos, todosProdutos)
         
         mensagem = "Tabela atualizada com sucesso!"
         response = make_response(json.dumps({'message': mensagem}), 200)
