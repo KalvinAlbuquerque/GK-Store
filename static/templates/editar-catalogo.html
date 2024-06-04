@@ -45,6 +45,17 @@
                     
                     </div>
 
+                    <div class="pesquisarPreco">
+
+                        <p class="title-pesquisar-preco">Faixa de preço: </p>
+
+                        <input type="text" class="precoMin" placeholder="" value="0.00"> 
+                        <p class="a-pesquisar">à</p>
+                        <input type="text" class="precoMax" placeholder="" value="99999999.00">
+                        <button onclick="filtrarPorPreco()" class="btn-filtrar">FILTRAR</button>
+
+                    </div>
+
                     <div class="ordenacao-filtro">
                         <p class="title-categorias">Ordenar por: </p>
                         <div class="filtros">
@@ -65,10 +76,19 @@
 
                                 <input type="radio" id="option4" name="option" class="hidden-radio">
                                 <label for="option4" class="custom-radio">Maior preço</label>
+                                
+                                <br>
+
+                                <input type="radio" id="option5" name="option" class="hidden-radio">
+                                <label for="option5" class="custom-radio">ID do produto</label>
 
                         </div>
                     </div>
+
+                    <div class="blank-div"></div>
                 </div>
+
+
 
             </div>
         </div>

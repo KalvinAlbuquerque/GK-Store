@@ -1,20 +1,14 @@
-import pandas as pd
-from openpyxl import load_workbook
-from openpyxl.styles import Font
-from openpyxl.chart import BarChart, Reference
-import string
-from common.produto import Produto
-
 class Registro:
   def __init__(self):
     self.Chave = None
     self.Elemento = None
+    self.posicaoNoArquivo = -1
 
 class Pagina:
   def __init__(self, ordem):
     self.n = 0
-    self.r = [None for i in range(ordem)]
-    self.p = [None for i in range(ordem+1)]
+    self.r = [None for _ in range(ordem)]
+    self.p = [None for _ in range(ordem+1)]
 
 class BTree():
     
@@ -22,33 +16,136 @@ class BTree():
         self.order = order
         self.root = None
 
-    def search(self, x):
+    def getListaOrdenada(self) -> list:
+        """ 
+            Retorna uma lista em ordem crescente das chaves presentes na árvore
+        """
+        result = []
+        
+        self.__getOrdenado__(self.root, result)
 
+        return result
+
+    def __getOrdenado__(self, Ap, lista):
+
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.__getOrdenado__(Ap.p[i], lista)
+                lista.append(Ap.r[i].Elemento)
+                i += 1
+            self.__getOrdenado__(Ap.p[i], lista)
+
+    def getListaLimiteMaxMin(self, registroMax, registroMin) -> list:
+        
+        result = []
+
+        self.__getValorMaiorXMenorY__(registroMin, registroMax, self.root, result)
+
+        return result
+    
+    def __getValorMaiorXMenorY__(self, x, x2, Ap, lista):
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.__getValorMaiorXMenorY__(x, x2, Ap.p[i], lista)
+                if (Ap.r[i].Elemento >= x.Elemento and Ap.r[i].Elemento <= x2.Elemento):
+                    lista.append(Ap.r[i].Chave)
+                i += 1
+            self.__getValorMaiorXMenorY__(x, x2, Ap.p[i], lista)
+
+    def getListaValoresMaiores(self, registro: Registro) -> list:
+        """ 
+            Retorna uma lista de valores maiores que uma chave
+        """
+
+        result = []
+
+        self.__getValorMaior__(registro, self.root, result)
+
+        return result
+    
+    def __getValorMaior__(self, x, Ap, lista):
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.__getValorMaior__(x, Ap.p[i], lista)
+                if (Ap.r[i].Elemento > x.Elemento):
+                    lista.append(Ap.r[i].Chave)
+                i += 1
+            self.__getValorMaior__(x, Ap.p[i], lista)
+
+    def getListaValoresMenores(self, registro: Registro) -> list:
+        """ 
+            Retorna uma lista de valores menores que uma chave
+        """
+
+        result = []
+
+        self.__getValorMenor__(registro, self.root, result)
+
+        return result
+
+    def __getValorMenor__(self, x, Ap, lista):
+
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.__getValorMenor__(x, Ap.p[i], lista)
+                if (Ap.r[i].Elemento < x.Elemento):
+                    lista.append(Ap.r[i].Chave)
+                i += 1
+            self.__getValorMenor__(x, Ap.p[i], lista)
+
+    def ImprimeMenor(self, x, Ap):
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.ImprimeMenor(x, Ap.p[i])
+                if (Ap.r[i].Chave < x.Chave):
+                    print(Ap.r[i].Chave, "-", Ap.r[i].Elemento)
+                i += 1
+            self.ImprimeMenor(x, Ap.p[i])
+    
+    def ImprimeMaior(self, x, Ap):
+        if (Ap != None):
+            i = 0
+            while i < Ap.n:
+                self.ImprimeMaior(x, Ap.p[i])
+                if (Ap.r[i].Chave > x.Chave):
+                    print(Ap.r[i].Chave, "-", Ap.r[i].Elemento)
+                i += 1
+            self.ImprimeMaior(x, Ap.p[i])
+
+    def search(self, x, Ap):
         i = 1
-        if (self.root == None):
+        if (Ap == None):
             print("Registro não está presente na árvore\n")
             return None
 
-        while (i < self.root.n and x.Chave > self.root.r[i - 1].Chave):
+        while (i < Ap.n and x.Chave > Ap.r[i - 1].Chave):
             i += 1
-        if (x.Chave == self.root.r[i - 1].Chave):
-            x = self.root.r[i - 1]
+        if (x.Chave == Ap.r[i - 1].Chave):
+            x = Ap.r[i - 1]
             return x
 
-        if (x.Chave < self.root.r[i - 1].Chave):
-            x = self.search(x, self.root.p[i - 1])
+        if (x.Chave < Ap.r[i - 1].Chave):
+            x = self.search(x, Ap.p[i - 1])
         else:
-            x = self.search(x, self.root.p[i])
-
+            x = self.search(x, Ap.p[i])
+        
         return x
     
     def insert_from_list(self, listOfKeys, listOfElements):
-
+        
+        posicaoCounter = 0
         for key, element in zip(listOfKeys, listOfElements):
            novoRegistro = Registro()
-           novoRegistro.Chave = int(key) # pra garantir que a chave vai ser um inteiro
+           novoRegistro.Chave = float(key) # pra garantir que a chave vai ser um numero
            novoRegistro.Elemento = element
+           novoRegistro.posicaoNoArquivo = posicaoCounter
            self.__insert_element__(novoRegistro)
+           posicaoCounter += 1
     
     def __insert_element__(self, reg: Registro):
         

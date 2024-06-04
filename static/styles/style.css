@@ -239,8 +239,13 @@ body
     position: relative;
     align-self: flex-start;
     width: 20%;
-    height: 100%;
+    max-height: 100%;
     /* background-color: black; */
+}
+
+.menu
+{
+    overflow-y: scroll;
 }
 
 .bg-catalogo .catalogo-title
@@ -370,7 +375,7 @@ body
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-y: scroll;
     border: 1px solid rgb(207, 206, 206);
     font-size: 12px;
 }
@@ -396,6 +401,48 @@ body
 {
     margin-left: 0.5vw;
     margin-top: 0.5vw;
+}
+
+.pesquisarPreco
+{
+    width: 70%;
+    margin-left: 1vw;
+    margin-top: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: black; */
+    padding: 0.5vw;
+    border: 1px solid rgb(207, 206, 206);
+}
+
+.btn-filtrar
+{
+    background-color: #17191B;
+    border: none;
+    color: white;
+    padding: 10px 15px 10px 15px;
+    margin-top: 0.5vw;
+}
+
+.title-pesquisar-preco
+{
+    padding-top: 0.5vw;
+    font-weight: bolder;
+    font-size: 15px;
+    align-self: flex-start;
+}
+
+.a-pesquisar
+{
+    margin-top: 0.5vw;
+    align-self: center;
+}
+
+.blank-div
+{
+    margin-top: 3vw;
 }
 
 /* 

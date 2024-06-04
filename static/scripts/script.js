@@ -24,22 +24,37 @@ var radioSelecionado = "option1";
 var pesquisarH = "";
 
 /*
+    Preço mínimo valor
+*/
+var precoMinValue = 0.0
+
+/* 
+    Preço máximo valor
+*/
+var precoMaxValue = 99999999.0;
+
+/* 
+    Filtrar produtos por preço
+*/
+var deveFiltrar = false;
+
+/*
     Limpando a barra de pesquisa
 */
 const inputElement = document.querySelector('.search-input');
 inputElement.value = "";
 
 /* 
-    Checando se está em modo de edição
+    Preço mínimo elemento
 */
-var editionMode = false;
+const precoMin = document.querySelector('.precoMin');
+precoMin.value = "0.00"
 
-var currentPath = window.location.pathname;
-if (currentPath.includes("editar-catalogo.html"))
-{
-    console.log("Edition mode enabled.");
-    editionMode = true;
-}
+/* 
+    Preço máximo elemento
+*/
+const precoMax = document.querySelector('.precoMax');
+precoMax.value = "99999999.0";
 
 /* 
 
@@ -81,6 +96,13 @@ function getProdutoPorId(idProduto)
     return produto;
 }
 
+/* 
+    Função para verificar se uma string pode ser convertida pra float
+*/
+function isStringConvertibleToFloat(str) 
+{
+    return !isNaN(parseFloat(str));
+}
 
 
 
@@ -190,12 +212,6 @@ function gerenciar_categorias()
 
     let  novaDiv = document.createElement('div');
     novaDiv.classList.add('editar-categorias');    
-
-    // var response = await fetch('/categorias');
-    // var categor = await response.json();
-
-    // const response = await fetch('/categorias');
-    // const categorias = await response.json();
 
     novaDiv.innerHTML = `
     <button class="btn-salvar-produto" id="btn-editar-categoria">EDITAR CATEGORIA</button>
@@ -538,12 +554,12 @@ async function updateProduto(produtoID)
 /* 
 
     
-        FUNÇÕES PARA PESQUISAR PRODUTO
+        FUNÇÕES PARA PESQUISAR/FILTRAR PRODUTOS
 
 
 */
 
-async function pesquisar() 
+function pesquisar() 
 {
     const inputElement = document.querySelector('.search-input');
 
@@ -562,6 +578,25 @@ async function pesquisar()
     carregarProdutos();
 }
 
+function filtrarPorPreco()
+{
+    let precoMinLocal = document.querySelector('.precoMin');
+    let precoMaxLocal = document.querySelector('.precoMax');
+
+    if (contemApenasNumerosEPonto(precoMinLocal.value) && contemApenasNumerosEPonto(precoMaxLocal.value))
+    {
+        deveFiltrar = true;
+        limparDivProdutos();
+        carregarProdutos();
+    }
+    else
+    {
+        precoMinLocal.value = "0.00";
+        precoMaxLocal.value = "99999999.00";
+        deveFiltrar = false;
+        alert("Utilize apenas números e ponto para definir as faixas de preço!");
+    }
+}
 
 
 /* 
@@ -688,6 +723,33 @@ async function carregarProdutos()
                 let responseMaiorPreco = await fetch(`/produtosMaiorPreco/${produtosID}`);
                 produtosID = await responseMaiorPreco.json();
             }
+            else if (radioSelecionado == "option5")
+            {
+                let responseOrdenadoArvoreB = await fetch(`/produtosOrdenadosArvoreB/${produtosID}`)
+                produtosID = await responseOrdenadoArvoreB.json();
+            }
+        }
+
+        /* 
+            Checa as faixas de preço
+        */
+        if (deveFiltrar)
+        {
+            let precoMinLocal = document.querySelector('.precoMin');
+            let precoMaxLocal = document.querySelector('.precoMax');
+
+            minFloat = parseFloat(precoMinLocal.value);
+            maxFloat = parseFloat(precoMaxLocal.value);
+
+            // console.log(minFloat)
+            // console.log(maxFloat)
+
+            if (minFloat > 0 || maxFloat < 99999999)
+            {
+                console.log("lkajslkdjasklj")
+                let responsePrecoMenorMaior = await fetch(`/buscarIntervalosDePreco/${produtosID}/${maxFloat}/${minFloat}`)
+                produtosID = await responsePrecoMenorMaior.json();
+            }
         }
 
         const catalogoContainer = document.getElementById('catalogo-container');
@@ -709,11 +771,16 @@ async function carregarProdutos()
             let nomeProduto = objetoProduto.nome.toUpperCase();
             let corProduto = objetoProduto.cor.toUpperCase();
 
+            let posicaoNaTabela = await fetch(`/localizacaoProdutoNaTabela/${produtoID}`)
+            
+
             divProduto.innerHTML = `
                 <img src="${imagemProduto}" class="pic-produto">
                 <p class="title-produto" id="title-produto">${nomeProduto}</p>
                 <p class="preco-produto" id="preco-produto">R$ ${objetoProduto.preco}</p>
                 <p class="cor-produto" id="cor-produto">${corProduto}</p>
+                <p class="cor-produto" id="idproduto">ID: ${produtoID}</p>
+                <p class="cor-produto" id="idproduto">POSIÇÃO: ${(await posicaoNaTabela.text()).toString()}</p>
             `;
                 
             divProduto.addEventListener('click', () => {
@@ -795,6 +862,9 @@ function adicionarListenerRadiosOrdenacao()
                         case 'option4':
                             radioSelecionado = "option4";
                             break;
+                        case 'option5':
+                            radioSelecionado = "option5";
+                            break;
                     }
 
                     limparDivProdutos();
@@ -841,6 +911,34 @@ inputElement.addEventListener('input', function(event)
     if (textoDigitado.length == 0)
     {
         pesquisarH = "";
+    }
+});
+
+/* 
+    Listener do input de preço max
+*/
+precoMax.addEventListener('input', function(event) 
+{
+    const precoDigitado = event.target.value; 
+    
+    if (precoDigitado.length == 0)
+    {
+        precoMaxValue = 99999999.0;
+        precoMax.value = "99999999.00";
+    }
+});
+
+/* 
+    Listener do input de preço min
+*/
+precoMin.addEventListener('input', function(event) 
+{
+    const precoDigitado = event.target.value; 
+    
+    if (precoDigitado.length == 0)
+    {
+        precoMinValue = 0.0;
+        precoMin.value = "0.00";
     }
 });
 

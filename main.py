@@ -6,7 +6,7 @@ import gzip, os
 from algorithms.tabela import TabelaPrincipal, TabelaCategorias, TabelaProdutos
 from common.produto import Produto
 from common.catagoria import Categoria
-from algorithms.arvoreb import BTree
+from algorithms.arvoreb import BTree, Registro
 
 global tabelaPrincipal
 tabelaPrincipal = TabelaPrincipal("data/catalogo.json")
@@ -264,7 +264,73 @@ class Main():
         response.headers['Content-Type'] = 'application/json'
 
         return response
+    
+    """ 
 
+        FUNÇÕES ARVORE B 
+    
+    """
+    @app.route('/produtosOrdenadosArvoreB/<produtosID>', methods=['GET'])
+    def ordenacao_arvoreb(produtosID):
+        global ordemArvore
+
+        arvoreb = BTree(ordemArvore)
+
+        produtosID = produtosID.split(",")
+
+        arvoreb.insert_from_list(produtosID, produtosID)
+
+        produtos = arvoreb.getListaOrdenada()
+
+        return jsonify(produtos)
+    
+    @app.route('/localizacaoProdutoNaTabela/<idproduto>', methods=['GET'])
+    def localizacao_produto_por_id(idproduto):
+        global arvore
+
+        registro = Registro()
+        registro.Chave = int(idproduto)
+
+        resposta = arvore.search(registro, arvore.root).posicaoNoArquivo
+
+        return str(resposta)
+    
+    @app.route('/buscarIntervalosDePreco/<produtos>/<precoMax>/<precoMin>', methods=['GET'])
+    def buscatIntervalosPreco(produtos, precoMax, precoMin):
+        global ordemArvore
+
+        arvoreb = BTree(ordemArvore)
+
+        produtos = produtos.split(",")
+
+        # Criando uma nova arvore com a chave sendo o preço do produto
+
+        precosLista = []
+
+        for produto in produtos:
+            precosLista.append(float(tabelaPrincipal.getTabelaProdutos().getPrecoProduto(produto)))
+
+        # chave -> preço do produto / elemento -> id do produto
+        arvoreb.insert_from_list(produtos, precosLista)
+
+        resultado = []
+
+        registroMax = Registro()
+        registroMax.Elemento = float(precoMax)
+        
+        registroMin = Registro()
+        registroMin.Elemento = float(precoMin)
+
+        if (float(precoMax) == 99999999):
+            resultado = arvoreb.getListaValoresMaiores(registroMin)
+        elif (float(precoMin) == 0):
+            resultado = arvoreb.getListaValoresMenores(registroMax)
+        else:
+            resultado = arvoreb.getListaLimiteMaxMin(registroMax, registroMin)
+
+        print(resultado)
+
+        return jsonify(resultado)
 
 catalog = Main()
 
