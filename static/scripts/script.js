@@ -582,7 +582,7 @@ function filtrarPorPreco()
 {
     let precoMinLocal = document.querySelector('.precoMin');
     let precoMaxLocal = document.querySelector('.precoMax');
-
+    
     if (contemApenasNumerosEPonto(precoMinLocal.value) && contemApenasNumerosEPonto(precoMaxLocal.value))
     {
         deveFiltrar = true;
@@ -671,6 +671,8 @@ async function carregarProdutos()
                 const produtosCategoria = await obterProdutosPorCategoria(categoria);
 
                 produtosID = produtosID.concat(produtosCategoria);
+
+                console.log(produtosID)
             }
         }
         else
@@ -704,6 +706,24 @@ async function carregarProdutos()
         }
 
         /* 
+            Checa as faixas de preço
+        */
+        if (deveFiltrar)
+        {
+            let precoMinLocal = document.querySelector('.precoMin');
+            let precoMaxLocal = document.querySelector('.precoMax');
+
+            minFloat = parseFloat(precoMinLocal.value);
+            maxFloat = parseFloat(precoMaxLocal.value);
+
+            if (minFloat > 0 || maxFloat < 99999999)
+            {
+                let responsePrecoMenorMaior = await fetch(`/buscarIntervalosDePreco/${produtosID}/${maxFloat}/${minFloat}`)
+                produtosID = await responsePrecoMenorMaior.json();
+            }
+        }
+
+        /* 
             Checa os radios de ordenação
         */
         if (radioSelecionado != "option1")
@@ -728,35 +748,14 @@ async function carregarProdutos()
                 let responseOrdenadoArvoreB = await fetch(`/produtosOrdenadosArvoreB/${produtosID}`)
                 produtosID = await responseOrdenadoArvoreB.json();
             }
-        }
-
-        /* 
-            Checa as faixas de preço
-        */
-        if (deveFiltrar)
-        {
-            let precoMinLocal = document.querySelector('.precoMin');
-            let precoMaxLocal = document.querySelector('.precoMax');
-
-            minFloat = parseFloat(precoMinLocal.value);
-            maxFloat = parseFloat(precoMaxLocal.value);
-
-            // console.log(minFloat)
-            // console.log(maxFloat)
-
-            if (minFloat > 0 || maxFloat < 99999999)
+            else if (radioSelecionado == "option6")
             {
-                console.log("lkajslkdjasklj")
-                let responsePrecoMenorMaior = await fetch(`/buscarIntervalosDePreco/${produtosID}/${maxFloat}/${minFloat}`)
-                produtosID = await responsePrecoMenorMaior.json();
+                let responseOrdenadoArvoreB = await fetch(`/produtosOrdenadosArvoreBNome/${produtosID}`)
+                produtosID = await responseOrdenadoArvoreB.json();
             }
         }
 
         const catalogoContainer = document.getElementById('catalogo-container');
-
-        // console.log(produtosID)
-
-        // console.log(produtos);
         
         /* 
 
@@ -864,6 +863,9 @@ function adicionarListenerRadiosOrdenacao()
                             break;
                         case 'option5':
                             radioSelecionado = "option5";
+                            break;
+                        case 'option6':
+                            radioSelecionado = "option6";
                             break;
                     }
 

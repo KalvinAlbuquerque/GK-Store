@@ -262,7 +262,6 @@ class TabelaCategorias():
         return categorias
 
 
-
 class TabelaPrincipal():
 
     def __init__(self, jsonPath) -> None:

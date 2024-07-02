@@ -17,6 +17,9 @@ ordemArvore = 6
 global arvore
 arvore = BTree(ordemArvore) # arvore b de ordem 6
 
+global arvoreCategoria
+arvore = BTree(ordemArvore - 3)
+
 class Main():
 
     app = Flask(__name__)
@@ -56,19 +59,13 @@ class Main():
         categorias = tabelaPrincipal.getTabelaCategorias().getTodasCategorias()
 
         return jsonify(categorias)
-    
-    @app.route('/categoriasProdutos/<categoria>', methods=['GET'])
-    def obter_produtos_categoria(categoria):
-        global tabelaPrincipal
-        produtosCategoria = tabelaPrincipal.getTabelaCategorias().getProdutos(categoria)
-
-        return jsonify(produtosCategoria)
 
     @app.route('/atualizarTabela')
     def atualizar_tabela():
         global tabelaPrincipal
         global arvore
         global ordemArvore
+        global arvoreCategoria
 
         tabelaPrincipal = TabelaPrincipal("data/catalogo.json")
         
@@ -86,6 +83,25 @@ class Main():
 
         # Insere na arvore b os registros estruturados como: chave (idProduto) elemento (dicionarioDoProduto)
         arvore.insert_from_list(todosIdsProdutos, todosProdutos)
+
+        #
+        # carregando todas as categorias pra arvore b
+        #
+
+        # Faz duas listas com os nomes das categorias e os dicionarios de cada uma
+        tabelaCategorias = tabelaPrincipal.getTabelaCategorias()
+        todasCategorias = tabelaCategorias.getTodasCategorias()
+        
+        todosNomesCategoria = []
+        todosProdutosCadaCategoria = []
+
+        for categoria in todasCategorias:
+            todosNomesCategoria.append(categoria[0])
+            todosProdutosCadaCategoria.append(categoria[1]["produtos"])
+
+        arvoreCategoria = BTree(ordemArvore - 3)
+        
+        arvoreCategoria.insert_from_list(todosNomesCategoria, todosProdutosCadaCategoria)
         
         mensagem = "Tabela atualizada com sucesso!"
         response = make_response(json.dumps({'message': mensagem}), 200)
@@ -292,6 +308,7 @@ class Main():
         registro.Chave = int(idproduto)
 
         resposta = arvore.search(registro, arvore.root).posicaoNoArquivo
+        print(type(resposta))
 
         return str(resposta)
     
@@ -322,15 +339,49 @@ class Main():
         registroMin.Elemento = float(precoMin)
 
         if (float(precoMax) == 99999999):
-            resultado = arvoreb.getListaValoresMaiores(registroMin)
+            resultado = arvoreb.getListaValoresMaioresElemento(registroMin)
         elif (float(precoMin) == 0):
-            resultado = arvoreb.getListaValoresMenores(registroMax)
+            resultado = arvoreb.getListaValoresMenoresElemento(registroMax)
         else:
-            resultado = arvoreb.getListaLimiteMaxMin(registroMax, registroMin)
+            resultado = arvoreb.getListaLimiteMaxMinElemento(registroMax, registroMin)
 
         print(resultado)
 
         return jsonify(resultado)
+
+    @app.route('/categoriasProdutos/<categoria>', methods=['GET'])
+    def obter_produtos_categoria(categoria):
+        global arvoreCategoria
+
+        registro = Registro()
+        registro.Chave = arvoreCategoria.converter_para_numerico(categoria)
+
+        result = arvoreCategoria.search(registro, arvoreCategoria.root).Elemento
+
+        return jsonify(result)
+    
+    @app.route('/produtosOrdenadosArvoreBNome/<produtosID>', methods=['GET'])
+    def ordenacao_arvoreb_por_nome(produtosID):
+        global ordemArvore
+        global tabelaPrincipal
+
+        arvoreb = BTree(ordemArvore)
+
+        produtosID = produtosID.split(",")
+
+        listaProdutosNome = []
+
+        for produto in produtosID:
+            listaProdutosNome.append(tabelaPrincipal.getTabelaProdutos().getNomeProduto(produto))
+
+        arvoreb.insert_from_list(listaProdutosNome, produtosID)
+
+        produtos = arvoreb.getListaOrdenada()
+
+        print(produtos)
+
+        return jsonify(produtos)
+
 
 catalog = Main()
 

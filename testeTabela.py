@@ -157,8 +157,8 @@ printar_tabela_produtos()
 """
 
 # nomeCategoria = "Sport"
-# all_categorias = tabelaCategorias.getTodasCategorias()
+all_categorias = tabelaCategorias.getTodasCategorias()
 
-# for categoria in all_categorias:
+for categoria in all_categorias:
 
-#     print(categoria)
+    print(categoria[1]['produtos'])
